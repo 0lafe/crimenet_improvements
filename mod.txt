@@ -1,0 +1,8 @@
+{
+	"name": "Crimenet Improvements",
+	"description": "Various improvements to the matchmaking experience",
+	"author": "0lafe",
+	"contact": "N/A",
+	"version": "1.0",
+	"blt_version": 2
+}

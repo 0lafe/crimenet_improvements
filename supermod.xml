@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<mod name="Crimenet Improvements">
+	<hooks script_path="main.lua">
+        <post hook_id="lib/utils/distributionwrapper"/>
+        <post hook_id="lib/network/base/clientnetworksession"/>
+        <post hook_id="lib/managers/menumanager"/>
+        <post hook_id=""/>
+        <post hook_id=""/>
+        <post hook_id=""/>
+        <post hook_id=""/>
+    </hooks>
+</mod>
