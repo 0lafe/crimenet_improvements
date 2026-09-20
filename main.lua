@@ -1,7 +1,16 @@
 if not CrimenetImprovements then
     CrimenetImprovements = {
         mod_path = ModPath,
+        save_path = SavePath .. "CrimenetImprovements.json",
         required = {},
+        lobby_filter = {
+            MODE_HIDDEN = 1,
+            MODE_MARKED = 2,
+            MODE_DISPLAYED = 3,
+            settings = { mode = 1 },
+            _stale = {},
+            _in_join_check = false
+        }
     }
 
     CrimenetImprovements.EOS_RESULTS = {
@@ -216,6 +225,46 @@ if not CrimenetImprovements then
         return nil
     end
 
+    function CrimenetImprovements:load()
+        local file = io.open(self.save_path, "r")
+        if not file then
+            return
+        end
+
+        local ok, data = pcall(json.decode, file:read("*all"))
+
+        file:close()
+
+        if ok and type(data) == "table" and type(data.mode) == "number" then
+            self.lobby_filter.settings.mode = math.clamp(math.floor(data.mode), 1, 3)
+        end
+    end
+
+    function CrimenetImprovements:save()
+        local file = io.open(self.save_path, "w+")
+        if file then
+            file:write(json.encode(self.lobby_filter.settings))
+            file:close()
+        end
+    end
+
+    function CrimenetImprovements:lobby_filter_mode()
+        return self.lobby_filter.settings.mode
+    end
+
+    function CrimenetImprovements:mark_color()
+        return tweak_data.screen_colors.important_1 or Color.red
+    end
+
+    function CrimenetImprovements:is_stale_lobby(members, limit, advertised)
+        if not members or not advertised then
+            return false
+        end
+
+        limit = limit or 4
+
+        return members >= limit and advertised < members
+    end
 end
 
 if RequiredScript and not CrimenetImprovements.required[RequiredScript] then

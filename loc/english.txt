@@ -1,0 +1,9 @@
+{
+	"crimenetimprovements_menu_title": "Crimenet Improvements",
+	"crimenetimprovements_menu_desc": "What to do with lobbies that EOS reports as full but whose advertised player count says otherwise.",
+	"crimenetimprovements_mode_title": "Stale full lobbies",
+	"crimenetimprovements_mode_desc": "Hidden: remove them from CrimeNet. Marked: keep but highlight them. Displayed: vanilla behaviour.",
+	"crimenetimprovements_mode_hidden": "Hidden",
+	"crimenetimprovements_mode_marked": "Marked",
+	"crimenetimprovements_mode_displayed": "Displayed"
+}

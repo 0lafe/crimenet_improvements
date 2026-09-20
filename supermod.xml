@@ -3,10 +3,8 @@
 	<hooks script_path="main.lua">
         <post hook_id="lib/utils/distributionwrapper"/>
         <post hook_id="lib/network/base/clientnetworksession"/>
+        <post hook_id="lib/network/matchmaking/networkmatchmakingsteam"/>
         <post hook_id="lib/managers/menumanager"/>
-        <post hook_id=""/>
-        <post hook_id=""/>
-        <post hook_id=""/>
-        <post hook_id=""/>
+        <post hook_id="lib/managers/crimenetmanager"/>
     </hooks>
 </mod>

@@ -50,3 +50,22 @@ function MenuManager:show_request_timed_out_dialog(...)
 
     show_failed_menu(managers.localization:text("dialog_request_timed_out_title"), head, body, details)
 end
+
+CrimenetImprovements:load()
+
+Hooks:Add("LocalizationManagerPostInit", "CrimenetImprovements_Localization", function(loc)
+    loc:load_localization_file(CrimenetImprovements.mod_path .. "loc/english.txt", false)
+end)
+
+Hooks:Add("MenuManagerInitialize", "CrimenetImprovements_MenuInit", function(menu_manager)
+    function MenuCallbackHandler:crimenetimprovements_set_mode(item)
+        CrimenetImprovements.lobby_filter.settings.mode = item:value()
+        CrimenetImprovements:save()
+    end
+
+    function MenuCallbackHandler:crimenetimprovements_save(item)
+        CrimenetImprovements:save()
+    end
+
+    MenuHelper:LoadFromJsonFile(CrimenetImprovements.mod_path .. "menu/options.json", CrimenetImprovements, CrimenetImprovements.lobby_filter.settings)
+end)
