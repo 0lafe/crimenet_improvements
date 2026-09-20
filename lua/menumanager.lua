@@ -1,10 +1,10 @@
 local function show_failed_menu(title, head, body, details)
-    local lobby_context = CrimenetImprovements:lobby_context()
+    local lobby_context = CIM:lobby_context()
     local lines = { head, "", body }
     local extra = {}
 
     if lobby_context then
-        local lobby = CrimenetImprovements:format_lobby()
+        local lobby = CIM:format_lobby()
 
         if lobby ~= "" then
             table.insert(extra, lobby)
@@ -31,7 +31,7 @@ end
 
 local orig_failed = MenuManager.show_failed_joining_dialog
 function MenuManager:show_failed_joining_dialog(...)
-    local head, body, details = CrimenetImprovements:explain_join_fail()
+    local head, body, details = CIM:explain_join_fail()
 
     if not head then
         return orig_failed(self, ...)
@@ -42,7 +42,7 @@ end
 
 local orig_timed_out = MenuManager.show_request_timed_out_dialog
 function MenuManager:show_request_timed_out_dialog(...)
-    local head, body, details = CrimenetImprovements:explain_join_fail()
+    local head, body, details = CIM:explain_join_fail()
 
     if not head then
         return orig_timed_out(self, ...)
@@ -51,21 +51,21 @@ function MenuManager:show_request_timed_out_dialog(...)
     show_failed_menu(managers.localization:text("dialog_request_timed_out_title"), head, body, details)
 end
 
-CrimenetImprovements:load()
+CIM:load()
 
-Hooks:Add("LocalizationManagerPostInit", "CrimenetImprovements_Localization", function(loc)
-    loc:load_localization_file(CrimenetImprovements.mod_path .. "loc/english.txt", false)
+Hooks:Add("LocalizationManagerPostInit", "CIM_Localization", function(loc)
+    loc:load_localization_file(CIM.mod_path .. "loc/english.txt", false)
 end)
 
-Hooks:Add("MenuManagerInitialize", "CrimenetImprovements_MenuInit", function(menu_manager)
-    function MenuCallbackHandler:crimenetimprovements_set_mode(item)
-        CrimenetImprovements.lobby_filter.settings.mode = item:value()
-        CrimenetImprovements:save()
+Hooks:Add("MenuManagerInitialize", "CIM_MenuInit", function(menu_manager)
+    function MenuCallbackHandler:CIM_set_mode(item)
+        CIM.lobby_filter.settings.mode = item:value()
+        CIM:save()
     end
 
-    function MenuCallbackHandler:crimenetimprovements_save(item)
-        CrimenetImprovements:save()
+    function MenuCallbackHandler:CIM_save(item)
+        CIM:save()
     end
 
-    MenuHelper:LoadFromJsonFile(CrimenetImprovements.mod_path .. "menu/options.json", CrimenetImprovements, CrimenetImprovements.lobby_filter.settings)
+    MenuHelper:LoadFromJsonFile(CIM.mod_path .. "menu/options.json", CIM, CIM.lobby_filter.settings)
 end)

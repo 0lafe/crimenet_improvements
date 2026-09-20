@@ -9,11 +9,11 @@ local function paint(panel, name, color)
 end
 
 local function apply_mark(job, stale_data)
-    if not job or not stale_data or CrimenetImprovements:lobby_filter_mode() ~= CrimenetImprovements.lobby_filter.MODE_MARKED then
+    if not job or not stale_data or CIM:lobby_filter_mode() ~= CIM.lobby_filter.MODE_MARKED then
         return
     end
 
-    local red = CrimenetImprovements:mark_color()
+    local red = CIM:mark_color()
 
     paint(job.marker_panel, "marker_dot", red)
     paint(job.glow_panel, "glow_center", red)
@@ -30,12 +30,12 @@ end
 Hooks:PostHook(CrimeNetGui, "add_server_job", "ci_add_server_job", function(self, data)
     local job = data and self._jobs[data.id]
 
-    apply_mark(job, data and CrimenetImprovements.lobby_filter._stale[data.room_id])
+    apply_mark(job, data and CIM.lobby_filter._stale[data.room_id])
 end)
 
 Hooks:PostHook(CrimeNetGui, "update_server_job", "ci_update_server_job", function(self, data, i)
     local idx = data and (data.id or i)
     local job = idx and self._jobs[idx]
 
-    apply_mark(job, data and CrimenetImprovements.lobby_filter._stale[data.room_id])
+    apply_mark(job, data and CIM.lobby_filter._stale[data.room_id])
 end)
