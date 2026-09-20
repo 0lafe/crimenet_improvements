@@ -4,5 +4,13 @@
 	"author": "0lafe",
 	"contact": "N/A",
 	"version": "1.0",
-	"blt_version": 2
+	"blt_version": 2,
+	"updates" : [
+		{
+		"identifier" : "crimenet_improvements",
+			"host": {
+				"meta": "https://raw.githubusercontent.com/0lafe/crimenet_improvements/refs/heads/main/meta.json"
+			}
+		}
+	]
 }
