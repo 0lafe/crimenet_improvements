@@ -3,14 +3,14 @@
 	"parent_menu_id": "blt_options",
 	"title": "crimenetimprovements_menu_title",
 	"description": "crimenetimprovements_menu_desc",
-	"back_callback": "crimenetimprovements_save",
+	"back_callback": "CIM_save",
 	"items": [
 		{
 			"type": "multiple_choice",
 			"id": "mode",
 			"title": "crimenetimprovements_mode_title",
 			"description": "crimenetimprovements_mode_desc",
-			"callback": "crimenetimprovements_set_mode",
+			"callback": "CIM_set_mode",
 			"items": [
 				"crimenetimprovements_mode_hidden",
 				"crimenetimprovements_mode_marked",
