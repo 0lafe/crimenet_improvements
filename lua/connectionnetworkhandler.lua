@@ -45,3 +45,11 @@ Hooks:PreHook(ConnectionNetworkHandler, "peer_handshake", "cim_cnh_peer_handshak
         CIM:safe_string(peer_user_id)
     )
 end)
+
+Hooks:PreHook(ConnectionNetworkHandler, "sanity_check_network_status", "cim_cnh_sanity_check", function(self, sender)
+    CIM:local_log("RX sanity_check_network_status from %s", known(sender))
+end)
+
+Hooks:PreHook(ConnectionNetworkHandler, "sanity_check_network_status_reply", "cim_cnh_sanity_check_reply", function(self, sender)
+    CIM:local_log("RX sanity_check_network_status_reply from %s", known(sender))
+end)
