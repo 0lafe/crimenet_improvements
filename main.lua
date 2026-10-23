@@ -12,7 +12,7 @@ if not CIM then
             MODE_HIDDEN = 1,
             MODE_MARKED = 2,
             MODE_DISPLAYED = 3,
-            settings = { mode = 1 },
+            settings = { mode = 1, explain = true },
             _stale = {},
             _in_join_check = false
         }
@@ -59,6 +59,10 @@ if not CIM then
         if ok and type(data) == "table" and type(data.mode) == "number" then
             self.lobby_filter.settings.mode = math.clamp(math.floor(data.mode), 1, 3)
         end
+
+        if ok and type(data) == "table" and type(data.explain) == "boolean" then
+            self.lobby_filter.settings.explain = data.explain
+        end
     end
 
     function CIM:save()
@@ -72,6 +76,7 @@ if not CIM then
     dofile(CIM.mod_path .. "lib/verbose_logging.lua")
     dofile(CIM.mod_path .. "lib/lobby_filter.lua")
     dofile(CIM.mod_path .. "lib/mm_diagnostic.lua")
+    dofile(CIM.mod_path .. "lib/disconnect_reasons.lua")
 end
 
 if RequiredScript and not CIM.required[RequiredScript] then

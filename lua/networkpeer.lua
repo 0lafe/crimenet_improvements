@@ -1,6 +1,8 @@
 Hooks:PreHook(NetworkPeer, "_ping_timedout", "cim_ping_timedout", function(self)
     local rpc = self._rpc
 
+    CIM:mark_removal(self, "timeout", { loading = self._loading })
+
     CIM:local_log("PEER TIMEOUT %s ip=%s silent=%s verified=%s",
         CIM:peer_str(self),
         CIM:safe_string(self._ip),

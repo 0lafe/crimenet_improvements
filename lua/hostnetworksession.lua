@@ -172,3 +172,28 @@ Hooks:PostHook(HostNetworkSession, "chk_drop_in_peer", "cim_hns_chk_drop_in_peer
         CIM:safe_string(CIM.P(function() return dropin_peer:expecting_dropin() end))
     )
 end)
+
+-- Mirrors the vanilla decision so the kicked peer can be tagged before
+-- on_peer_kicked runs: the newer of the two peers is removed.
+Hooks:PreHook(HostNetworkSession, "process_dead_con_reports", "cim_hns_process_dead_con_reports", function(self)
+    local report = self._dead_con_reports and self._dead_con_reports[1]
+
+    if not report or TimerManager:wall():time() <= report.process_t then
+        return
+    end
+
+    local reporter, reported = report.reporter, report.reported
+    local ok, reporter_newer = pcall(function() return reporter:creation_t() > reported:creation_t() end)
+
+    if not ok then
+        return
+    end
+
+    local kicked, other = reported, reporter
+
+    if reporter_newer then
+        kicked, other = reporter, reported
+    end
+
+    CIM:mark_removal(kicked, "dead_report", { other = CIM:safe_string(CIM.P(function() return other:name() end)) })
+end)

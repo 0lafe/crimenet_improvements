@@ -157,4 +157,6 @@ Hooks:PostHook(NetworkMatchMakingSTEAM, "update", "cim_nmms_update", function(..
         CIM.last_heartbeat = now
         CIM:heartbeat()
     end
+
+    CIM.P(CIM.check_slow_links, CIM)
 end)

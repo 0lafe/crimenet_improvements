@@ -56,3 +56,57 @@ end)
 Hooks:PostHook(BaseNetworkSession, "add_connection_to_trash", "cim_bns_add_connection_to_trash", function(self, rpc)
     CIM:local_log("add_connection_to_trash %s", CIM:rpc_str(rpc))
 end)
+
+Hooks:PreHook(BaseNetworkSession, "on_peer_kicked", "cim_bns_on_peer_kicked_mark", function(self, peer, peer_id, message_id)
+    local mark = CIM.removals[peer]
+
+    if mark then
+        mark.message_id = message_id
+    else
+        CIM:mark_removal(peer, nil, { message_id = message_id })
+    end
+end)
+
+-- Swap the vanilla "<name> disconnected." line for an explained one. The
+-- override lives on the ChatManager instance only for the duration of the call.
+local orig_on_peer_removed = BaseNetworkSession._on_peer_removed
+function BaseNetworkSession:_on_peer_removed(peer, peer_id, reason, ...)
+    local chat = managers.chat
+    local head, hint
+
+    if chat and peer then
+        head, hint = CIM.P(CIM.explain_removal, CIM, peer, reason)
+    end
+
+    if not head then
+        return orig_on_peer_removed(self, peer, peer_id, reason, ...)
+    end
+
+    local vanilla = CIM:vanilla_removal_lines(peer)
+    local had_own = rawget(chat, "feed_system_message")
+    local feed = chat.feed_system_message
+    local done = false
+
+    chat.feed_system_message = function(c, channel_id, message, ...)
+        if done or not vanilla[message] then
+            return feed(c, channel_id, message, ...)
+        end
+
+        done = true
+        feed(c, channel_id, head)
+
+        if hint then
+            feed(c, channel_id, hint)
+        end
+    end
+
+    local r = { pcall(orig_on_peer_removed, self, peer, peer_id, reason, ...) }
+
+    chat.feed_system_message = had_own
+
+    if not r[1] then
+        error(r[2], 0)
+    end
+
+    return unpack(r, 2)
+end

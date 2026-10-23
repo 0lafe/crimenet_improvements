@@ -5,5 +5,30 @@
 	"crimenetimprovements_mode_desc": "Hidden: remove them from CrimeNet. Marked: keep but highlight them. Displayed: vanilla behaviour.",
 	"crimenetimprovements_mode_hidden": "Hidden",
 	"crimenetimprovements_mode_marked": "Marked",
-	"crimenetimprovements_mode_displayed": "Displayed"
+	"crimenetimprovements_mode_displayed": "Displayed",
+	"crimenetimprovements_explain_title": "Explain disconnects in chat",
+	"crimenetimprovements_explain_desc": "Replace \"<name> disconnected.\" with the likely reason, and warn when a connection to a player is taking too long. Only shown to you.",
+
+	"cim_dc_head_timeout": "$name; disconnected: nothing received from them for $secs; seconds.",
+	"cim_dc_head_host": "$name; was removed by the host after a connection problem.",
+	"cim_dc_head_transport": "$name; disconnected: Epic's network closed the connection.",
+	"cim_dc_head_lost": "$name; disconnected.",
+	"cim_dc_head_dead_report": "$name; was removed: they could not connect to $other;.",
+	"cim_dc_head_rejoin": "$name; reconnected, so their old connection was dropped.",
+	"cim_dc_head_auth": "$name; was removed: their Steam/Epic login could not be verified.",
+	"cim_dc_head_banned": "$name; was kicked and banned by the host.",
+
+	"cim_dc_hint_glare": "Your game never connected to them. Both games tried to open the connection at the same moment and Epic's setup stalled. This is a known PAYDAY 2 issue and usually not a problem with your setup. Rejoining often works.",
+	"cim_dc_hint_never": "Your game never connected to them. Something between you two blocked it, usually a router (NAT) or firewall. Others may still reach them. Turning on UPnP on your router usually helps. Your NAT type: $nat;.",
+	"cim_dc_hint_offline": "They also dropped off Epic's servers, so their game most likely crashed or lost its internet connection.",
+	"cim_dc_hint_closed": "Their game closed the connection: they quit, crashed, or went back to the main menu.",
+	"cim_dc_hint_dropped": "The connection between you two broke while they stayed online. Either side may have an unstable connection or packet loss.",
+	"cim_dc_hint_frozen": "The connection itself was fine, but their game stopped sending. It probably froze or crashed.",
+	"cim_dc_hint_frozen_loading": "The connection itself was fine, but their game stopped sending while loading in. This is usually a crash or hang caused by a mod or custom item they cannot load.",
+	"cim_dc_hint_host_side": "Your own connection to them was fine, so the problem was between them and the host.",
+	"cim_dc_hint_dead_report": "Players who cannot reach each other cannot play together, so PAYDAY 2 removes whoever joined last.",
+	"cim_dc_hint_auth": "This is usually a temporary Steam or Epic service problem. Restarting the game gets a fresh login ticket.",
+
+	"cim_dc_slow": "Still connecting to $name; after $secs; seconds. If this does not finish soon, they will be dropped.",
+	"cim_dc_slow_glare": "Still connecting to $name; after $secs; seconds. Both games tried to connect at the same time, which often stalls. If this does not finish soon, they will be dropped."
 }

@@ -4,6 +4,10 @@ function CIM:hook_join_request(class, tag)
         local old = CIM.P(function() return session:chk_peer_already_in(sender) end)
         local dup_acct = CIM.P(function() return session:peer_by_account_id(peer_account_id) end)
 
+        if old and join_attempt_identifier ~= CIM.P(function() return old:join_attempt_identifier() end) then
+            CIM:mark_removal(old, "rejoin")
+        end
+
         CIM:local_log("HOST[%s] JOIN REQUEST from '%s' acct=%s/%s %s invite=%s attempt=%s | peers=%s free_id=%s joinable=%s already_in=%s dup_account=%s wants_load=%s",
             tag,
             CIM:safe_string(peer_name),

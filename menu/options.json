@@ -17,6 +17,14 @@
 				"crimenetimprovements_mode_displayed"
 			],
 			"value": "mode"
+		},
+		{
+			"type": "toggle",
+			"id": "explain",
+			"title": "crimenetimprovements_explain_title",
+			"description": "crimenetimprovements_explain_desc",
+			"callback": "CIM_set_explain",
+			"value": "explain"
 		}
 	]
 }

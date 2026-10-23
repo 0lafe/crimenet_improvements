@@ -19,6 +19,13 @@ Hooks:PreHook(ConnectionNetworkHandler, "mutual_connection", "cim_cnh_mutual_con
 end)
 
 Hooks:PreHook(ConnectionNetworkHandler, "kick_peer", "cim_cnh_kick_peer", function(self, peer_id, message_id, sender)
+    local session = managers.network:session()
+    local peer = session and CIM.P(function() return session:peer(peer_id) end)
+
+    if peer and message_id == 1 then
+        CIM:mark_removal(peer, "host")
+    end
+
     CIM:local_log("RX kick_peer(#%s msg=%s) from %s",
         CIM:safe_string(peer_id),
         CIM:safe_string(message_id),

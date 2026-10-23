@@ -63,6 +63,11 @@ Hooks:Add("MenuManagerInitialize", "CIM_MenuInit", function(menu_manager)
         CIM:save()
     end
 
+    function MenuCallbackHandler:CIM_set_explain(item)
+        CIM.lobby_filter.settings.explain = item:value() == "on"
+        CIM:save()
+    end
+
     function MenuCallbackHandler:CIM_save(item)
         CIM:save()
     end
