@@ -3,7 +3,7 @@
 	"description": "Various improvements to the matchmaking experience",
 	"author": "0lafe",
 	"contact": "N/A",
-	"version": "1.0",
+	"version": "1.1",
 	"blt_version": 2,
 	"updates" : [
 		{
